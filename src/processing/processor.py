@@ -1,18 +1,20 @@
 from pathlib import Path
 from typing import List
 
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_core.documents import Document
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+from src.utils.logger import get_logger
+
 # import os, sys
 
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_core.documents import Document
 
 # # Get the path to the 'legal-advisor' root (two levels up from this script)
 # root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 # sys.path.append(root_path)
 
 
-from src.utils.logger import get_logger
 
 logger = get_logger("legal_processor")
 

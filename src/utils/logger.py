@@ -1,7 +1,7 @@
-from pathlib import Path
 import logging
-from logging.handlers import RotatingFileHandler
 from datetime import datetime
+from logging.handlers import RotatingFileHandler
+from pathlib import Path
 
 
 def get_logger(module_name: str) -> logging.Logger:
