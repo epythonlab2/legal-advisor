@@ -7,7 +7,6 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from src.utils.logger import get_logger
 
-
 logger = get_logger("legal_processor")
 
 
