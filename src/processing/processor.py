@@ -7,14 +7,6 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from src.utils.logger import get_logger
 
-# import os, sys
-
-
-# # Get the path to the 'legal-advisor' root (two levels up from this script)
-# root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-# sys.path.append(root_path)
-
-
 
 logger = get_logger("legal_processor")
 
