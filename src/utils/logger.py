@@ -41,10 +41,7 @@ def get_logger(module_name: str) -> logging.Logger:
     console_handler = logging.StreamHandler()
 
     file_handler = RotatingFileHandler(
-        log_file,
-        maxBytes=5 * 1024 * 1024,  # 5 MB
-        backupCount=5,
-        encoding="utf-8"
+        log_file, maxBytes=5 * 1024 * 1024, backupCount=5, encoding="utf-8"  # 5 MB
     )
 
     console_handler.setLevel(logging.INFO)
@@ -56,7 +53,7 @@ def get_logger(module_name: str) -> logging.Logger:
 
     formatter = logging.Formatter(
         "[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S"
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
 
     console_handler.setFormatter(formatter)

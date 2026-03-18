@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import List
+
 # import os, sys
 
 from langchain_community.document_loaders import PyPDFLoader
@@ -12,7 +13,6 @@ from langchain_core.documents import Document
 
 
 from src.utils.logger import get_logger
-
 
 logger = get_logger("legal_processor")
 
@@ -30,10 +30,9 @@ OUTPUT_DIR = BASE_DIR / "data" / "processed"
 # Document Processing
 # -------------------------------------------------------------------
 
+
 def process_legal_documents(
-    input_dir: Path,
-    chunk_size: int = 800,
-    chunk_overlap: int = 200
+    input_dir: Path, chunk_size: int = 800, chunk_overlap: int = 200
 ) -> List[Document]:
     """
     Load and split PDF legal documents into smaller chunks.
@@ -63,7 +62,7 @@ def process_legal_documents(
         chunk_size=chunk_size,
         chunk_overlap=chunk_overlap,
         separators=["\n\n", "\n", " ", ""],
-        add_start_index=True
+        add_start_index=True,
     )
 
     documents: List[Document] = []
@@ -97,6 +96,7 @@ def process_legal_documents(
 # -------------------------------------------------------------------
 # Entry Point
 # -------------------------------------------------------------------
+
 
 def main() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
