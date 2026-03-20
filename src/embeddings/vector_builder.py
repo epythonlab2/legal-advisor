@@ -23,23 +23,27 @@ def get_embedding_model() -> HuggingFaceEmbeddings:
 
 
 def build_vector_store(chunks: List[Document]) -> None:
-    """
-    Build and persist a FAISS vector store.
-
-    Args:
-        chunks: List of document chunks to embed.
-    """
-
     if not chunks:
-        logger.warning("No chunks provided to build vector store")
+        logger.warning("No chunks provided")
         return
+
+    # 1. Clean chunks before embedding
+    # Sometimes OCR adds weird characters like \x0c (page breaks)
+    # that confuse the embedding model.
+    for chunk in chunks:
+        chunk.page_content = chunk.page_content.replace("\x0c", " ")
+
+        # Ensure 'law_name' exists so FAISS doesn't crash on nulls
+        if "law_name" not in chunk.metadata:
+            chunk.metadata["law_name"] = "Unknown Proclamation"
 
     embedding_model = get_embedding_model()
 
-    logger.info("Creating FAISS vector store...")
+    logger.info("Creating FAISS index for %d chunks...", len(chunks))
+
+    # 2. Use 'from_documents' which handles metadata automatically
     vector_db = FAISS.from_documents(chunks, embedding_model)
 
     VECTOR_STORE_DIR.mkdir(parents=True, exist_ok=True)
     vector_db.save_local(str(VECTOR_STORE_DIR))
-
-    logger.info("Vector store successfully saved to %s", VECTOR_STORE_DIR)
+    logger.info("Vector store successfully saved.")
