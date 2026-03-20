@@ -1,13 +1,16 @@
 from pathlib import Path
 from typing import List, Optional
-from langchain_core.documents import Document
+
 from langchain_community.vectorstores import FAISS
+from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
+
 from src.utils.logger import get_logger
 
 logger = get_logger("retriever")
 VECTOR_STORE_DIR = Path("vector_store")
 EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+
 
 class LegalRetriever:
     """Encapsulates FAISS retrieval with HuggingFace embeddings using LangChain v0.3 standards."""
@@ -39,12 +42,12 @@ class LegalRetriever:
         self,
         query: str,
         k: Optional[int] = None,
-        metadata_filter: Optional[dict] = None
+        metadata_filter: Optional[dict] = None,
     ) -> List[Document]:
         """
         Retrieve relevant legal documents.
-        
-        Uses the direct similarity_search method to ensure thread-safety 
+
+        Uses the direct similarity_search method to ensure thread-safety
         when handling concurrent API requests.
         """
         search_k = k or self.top_k
@@ -55,13 +58,13 @@ class LegalRetriever:
             results = self.vector_db.max_marginal_relevance_search(
                 query=query,
                 k=search_k,
-                fetch_k=20, # Fetch 20, then pick the 5 most diverse
-                filter=metadata_filter
+                fetch_k=20,  # Fetch 20, then pick the 5 most diverse
+                filter=metadata_filter,
             )
-            
+
             logger.info("Retrieved %d documents", len(results))
             return results
-            
+
         except Exception as e:
             logger.error("Error during retrieval: %s", str(e))
             return []

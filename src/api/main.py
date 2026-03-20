@@ -7,17 +7,17 @@ Pipeline Orchestrator for Ethiopian Legal RAG System
 - Optionally starts a FastAPI RAG server
 """
 
-from pathlib import Path
 import argparse
 import sys
-from src.utils.logger import get_logger
+from pathlib import Path
 
+import uvicorn
+
+from src.embeddings.vector_builder import build_vector_store
 # Modular pipeline components
 from src.ingestion.loader import load_documents
 from src.ingestion.splitter import split_documents
-from src.embeddings.vector_builder import build_vector_store
-from src.api.rag_api import app
-import uvicorn
+from src.utils.logger import get_logger
 
 logger = get_logger("pipeline_orchestrator")
 
@@ -33,6 +33,7 @@ DEFAULT_CHUNK_OVERLAP = 200
 # -------------------------------------------------------------------
 # Pipeline Steps
 # -------------------------------------------------------------------
+
 
 def run_pipeline(
     data_dir: Path = DATA_DIR,
@@ -70,11 +71,8 @@ def run_pipeline(
 # API Server
 # -------------------------------------------------------------------
 
-def start_api(
-    host: str = "0.0.0.0",
-    port: int = 8000,
-    reload: bool = True
-) -> None:
+
+def start_api(host: str = "0.0.0.0", port: int = 8000, reload: bool = True) -> None:
     """
     Start the FastAPI RAG API for querying vector store
     """
@@ -89,6 +87,7 @@ def start_api(
 # Command-Line Interface
 # -------------------------------------------------------------------
 
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Legal RAG Pipeline Orchestrator for Ethiopian Law"
@@ -96,12 +95,12 @@ def parse_args():
     parser.add_argument(
         "--run_pipeline",
         action="store_true",
-        help="Run the ingestion → splitting → embedding pipeline"
+        help="Run the ingestion → splitting → embedding pipeline",
     )
     parser.add_argument(
         "--start_api",
         action="store_true",
-        help="Start the FastAPI RAG server after building vector store"
+        help="Start the FastAPI RAG server after building vector store",
     )
     parser.add_argument("--host", type=str, default="0.0.0.0", help="API host")
     parser.add_argument("--port", type=int, default=8000, help="API port")

@@ -9,9 +9,9 @@ Handles inconsistent formatting in Negarit Gazette PDFs by:
 - Attaching rich metadata
 """
 
+import re
 from pathlib import Path
 from typing import List, Optional
-import re
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.documents import Document
@@ -38,6 +38,7 @@ HEADING_PATTERN = re.compile(
 # Language Detection
 # -----------------------------
 
+
 def detect_language(text: str) -> str:
     """Detect language based on Unicode ranges."""
     if not text:
@@ -49,14 +50,11 @@ def detect_language(text: str) -> str:
 # Flexible Chunking
 # -----------------------------
 
-def chunk_text(
-    text: str, 
-    max_chars: int = 1000, 
-    overlap: int = 200
-) -> List[str]:
+
+def chunk_text(text: str, max_chars: int = 1000, overlap: int = 200) -> List[str]:
     """
     Split text into overlapping chunks of roughly max_chars length.
-    
+
     Args:
         text: Full text string
         max_chars: Maximum chunk length
@@ -86,6 +84,7 @@ def chunk_text(
 # Optional Heading Detection
 # -----------------------------
 
+
 def detect_heading(text: str) -> Optional[str]:
     """
     Attempt to extract a heading from the text.
@@ -98,6 +97,7 @@ def detect_heading(text: str) -> Optional[str]:
 # -----------------------------
 # Main Loader
 # -----------------------------
+
 
 def load_documents(data_dir: Path) -> List[Document]:
     """
@@ -151,7 +151,7 @@ def load_documents(data_dir: Path) -> List[Document]:
                         "heading": heading,
                         "chunk_index": i,
                         "chunk_size": len(chunk),
-                    }
+                    },
                 )
                 all_documents.append(doc)
 

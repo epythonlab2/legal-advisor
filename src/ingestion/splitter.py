@@ -1,8 +1,10 @@
 # ingestion/splitter.py
 
 from typing import List
+
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+
 from src.utils.logger import get_logger
 
 logger = get_logger("document_chunker")

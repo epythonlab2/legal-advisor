@@ -1,5 +1,5 @@
-import streamlit as st
 import requests
+import streamlit as st
 
 API_URL = "http://127.0.0.1:8000/query"
 
@@ -9,10 +9,7 @@ query = st.text_input("የሕግ ጥያቄዎን ያስገቡ")
 
 if st.button("ፈልግ") and query:
 
-    payload = {
-        "query": query,
-        "top_k": 5
-    }
+    payload = {"query": query, "top_k": 5}
 
     try:
         response = requests.post(API_URL, json=payload)

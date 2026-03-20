@@ -2,16 +2,18 @@
 
 from pathlib import Path
 from typing import List
+
 from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.documents import Document
+from langchain_huggingface import HuggingFaceEmbeddings
+
 from src.utils.logger import get_logger
 
 logger = get_logger("vector_builder")
 
 VECTOR_STORE_DIR = Path("vector_store")
 EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-MODEL_KWARGS    =   {"truncation": True, "max_length": 512}
+MODEL_KWARGS = {"truncation": True, "max_length": 512}
 
 
 def get_embedding_model() -> HuggingFaceEmbeddings:

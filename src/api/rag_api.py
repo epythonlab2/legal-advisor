@@ -1,8 +1,10 @@
 # api/rag_api.py
 
-from fastapi import FastAPI, HTTPException, Query
-from pydantic import BaseModel
 from typing import List, Optional
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+
 from src.rag.retriever import LegalRetriever
 from src.utils.logger import get_logger
 
