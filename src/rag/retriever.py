@@ -1,8 +1,10 @@
 from pathlib import Path
 from typing import List
 
-from langchain.retrievers.contextual_compression import ContextualCompressionRetriever
-from langchain_community.document_compressors.flashrank_rerank import FlashrankRerank
+from langchain.retrievers.contextual_compression import \
+    ContextualCompressionRetriever
+from langchain_community.document_compressors.flashrank_rerank import \
+    FlashrankRerank
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
