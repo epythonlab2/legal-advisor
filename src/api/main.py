@@ -10,9 +10,10 @@ Pipeline Orchestrator for Ethiopian Legal RAG System
 import argparse
 import sys
 from pathlib import Path
-import uvicorn
-from src.embeddings.vector_builder import build_vector_store
 
+import uvicorn
+
+from src.embeddings.vector_builder import build_vector_store
 # Modular pipeline components
 from src.ingestion.loader import load_documents
 from src.ingestion.splitter import split_documents
